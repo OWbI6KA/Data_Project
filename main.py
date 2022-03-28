@@ -59,16 +59,47 @@
 # #     main()
 
 
-import schedule
+# import schedule
+# import time
+#
+#
+# def printing():
+#     print('Я блять работаю')
+#
+#
+# schedule.every(10).seconds.do(printing(),int)
+#
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
+
 import time
+import schedule
+import mysql.connector
+from mysql.connector import errorcode
+
+import mySQL_script
 
 
-def printing():
-    print('Я блять работаю')
+def main():
+    try:
+        cnx = mysql.connector.connect(user='root',
+                                      password='nuqboc-zubQi6-vywpyk',
+                                      host='34.65.206.211',
+                                      database='monday')
+        cursor = cnx.cursor()
+        print('done')
 
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        print('dont work')
+        cnx.close()
 
-schedule.every(10).seconds.do(printing(),int)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+if __name__ == "__main__":
+    main()

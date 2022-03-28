@@ -9,10 +9,11 @@ import mySQL_script
 def main():
     try:
         cnx = mysql.connector.connect(user='root',
-                                      password='70ZiraFU',
-                                      host='127.0.0.1',
-                                      database='mondayProject')
+                                      password='nuqboc-zubQi6-vywpyk',
+                                      host='34.65.206.211',
+                                      database='monday')
         cursor = cnx.cursor()
+        print('done')
         return cnx, cursor
 
     except mysql.connector.Error as err:
@@ -23,6 +24,7 @@ def main():
         else:
             print(err)
     else:
+        print('dont work')
         cnx.close()
 
 
