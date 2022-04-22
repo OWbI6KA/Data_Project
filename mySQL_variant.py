@@ -11,7 +11,7 @@ def main():
         cnx = mysql.connector.connect(user='root',
                                       password='nuqboc-zubQi6-vywpyk',
                                       host='34.65.206.211',
-                                      database='monday')
+                                      database='Monday')
         cursor = cnx.cursor()
         print('done')
         return cnx, cursor

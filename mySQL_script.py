@@ -11,7 +11,7 @@ def connect_monday():
 def upload_data(req, cursor, cnx):
     print('working')
     data = json.loads(req.text)
-    delete = ''' DELETE FROM monday_data; '''
+    delete = "DELETE FROM monday_data"
     cursor.execute(delete)
     cnx.commit()
 
@@ -27,12 +27,11 @@ def upload_data(req, cursor, cnx):
             r = kek['column_values'][3]['text'].split(' ')[2]
         else:
             r = "None"
-        insert = ''' INSERT INTO monday_data (task_id,name,subtasks,contributor,people,status,timing) VALUES (%s,%s,%s,%s,%s,%s,%s); '''
-        dtuple = (kek['id'], kek['name'], temp, kek['column_values'][0]['text'], kek['column_values'][1]['text'],
-                  kek['column_values'][2]['text'], r)
-        cursor.execute(insert, dtuple)
+        insert = "INSERT INTO monday_data (task_id,name,subtasks,contributor,people,status,timing) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        data = (int(kek['id']), kek['name'], temp, kek['column_values'][0]['text'], kek['column_values'][1]['text'],
+                    kek['column_values'][2]['text'], r)
+        cursor.execute(insert, data)
         cnx.commit()
-
 
 # def script(cnx, cursor):
 #     req = connect_monday()
