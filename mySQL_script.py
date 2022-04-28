@@ -26,20 +26,21 @@ def upload_data(req, cursor, cnx):
         if kek['column_values'][3]['text'] != "":
             r = kek['column_values'][3]['text'].split(' ')[2]
         else:
-            r = "Null"
+            r = "NULL"
         insert = "INSERT INTO monday_data (task_id,name,subtasks,contributor,people,status,timing) VALUES (%s,%s,%s,%s,%s,%s,%s)"
         data = (int(kek['id']), kek['name'], temp, kek['column_values'][0]['text'], kek['column_values'][1]['text'],
                 kek['column_values'][2]['text'], r)
         cursor.execute(insert, data)
         cnx.commit()
+        left_join(cursor, cnx)
 
 
-def leftJoin(cursor, cnx):
-    join = "INSERT INTO table_name_1 (column_1, column_2, column_3, column_4) " \
-           "SELECT column_1, column_2, column_3, 2 " \
-           "FROM mondayProject.table_name " \
-           "WHERE mondayProject.table_name.column_1 " \
-           "not in SELECT column_1 " \
-           "from mondayProject.table_name_1)"
+def left_join(cursor, cnx):
+    join = (
+        "INSERT INTO Monday.main_data "
+        "(task_id, name, subtasks, contributor, people, status, timing, textWorker, doneByWorker, doneByLeader)"
+        " SELECT task_id, name, subtasks, contributor, people, status, timing, '', 0, 0 "
+        "FROM Monday.monday_data WHERE Monday.monday_data.task_id "
+        "not in (SELECT main_data.task_id from Monday.main_data)")
     cursor.execute(join)
     cnx.commit()
