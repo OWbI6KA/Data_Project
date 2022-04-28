@@ -32,6 +32,7 @@ if __name__ == "__main__":
     cnx, cursor = main()
     req = mySQL_script.connect_monday()
     schedule.every(10).seconds.do(mySQL_script.upload_data, req, cursor, cnx)
+    mySQL_script.leftJoin(cursor, cnx)
     while True:
         schedule.run_pending()
         time.sleep(1)
