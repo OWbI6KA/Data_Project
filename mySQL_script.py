@@ -26,7 +26,7 @@ def upload_data(req, cursor, cnx):
         if kek['column_values'][3]['text'] != "":
             r = kek['column_values'][3]['text'].split(' ')[2]
         else:
-            r = "NULL"
+            r = None
         insert = "INSERT INTO monday_data (task_id,name,subtasks,contributor,people,status,timing) VALUES (%s,%s,%s,%s,%s,%s,%s)"
         data = (int(kek['id']), kek['name'], temp, kek['column_values'][0]['text'], kek['column_values'][1]['text'],
                 kek['column_values'][2]['text'], r)
